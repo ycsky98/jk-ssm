@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.tedu.jk.dao.Login">
+	<select id="findByUser" parameterType="java.lang.Object" resultType="cn.tedu.jk.entity.User">
+		select * from UserLogin where admin=#{username}
+	</select>
+</mapper>

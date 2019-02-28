@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.tedu.jk.dao.FactoryDao">
+	<!-- 数据库映射 -->
+	<resultMap id="factoryRM" type="cn.tedu.jk.entity.Factory">
+		<id property="id" column="FACTORY_ID"/>
+		<result property="fullName" column="FULL_NAME"/>
+		<result property="factoryName" column="FACTORY_NAME"/>
+		<result property="contractor" column="CONTRACTOR"/>
+		<result property="phone" column="PHONE"/>
+		<result property="mobile" column="MOBILE"/>
+		<result property="fax" column="FAX"/>
+		<result property="cnote" column="CNOTE"/>
+		<result property="orderNo" column="ORDER_NO"/>
+		<result property="state" column="STATE"/>
+	</resultMap>
+	<!-- 查询所有的信息 -->
+	<select id="findFactory" resultMap="factoryRM">
+		select * from factory_c
+	</select>
+	<!-- 根据uuid查找工厂对象  -->
+	<select id="findById" parameterType="java.lang.Object" resultMap="factoryRM" resultType="cn.tedu.jk.entity.Factory">
+		select * from factory_c where FACTORY_ID=#{id1}
+	</select>
+	<!-- 依据传入的工厂对象修改数据库数据 -->
+	<update id="up" parameterType="cn.tedu.jk.entity.Factory">
+		update factory_c set FULL_NAME=#{fullName}, FACTORY_NAME=#{factoryName}, CONTRACTOR=#{contractor},
+		PHONE=#{phone}, MOBILE=#{mobile}, FAX=#{fax}, CNOTE=#{cnote}, ORDER_NO=#{orderNo}, STATE=#{state} where FACTORY_ID=#{id}
+	</update>
+	<!-- 将新增对象插入到数据库 -->
+	<insert id="insert" parameterType="cn.tedu.jk.entity.Factory">
+		insert into factory_c(FACTORY_ID,FULL_NAME,FACTORY_NAME,CONTRACTOR,PHONE,MOBILE,FAX,CNOTE,STATE) values(uuid(),#{fullName}, #{factoryName}, #{contractor},
+		#{phone}, #{mobile}, #{fax}, #{cnote}, 1)
+	</insert>
+	<!-- 将选中的工厂对象在数据库删除 -->
+	<delete id="delete" parameterType="java.lang.Object">
+		delete from factory_c where FACTORY_ID=#{id1}
+	</delete>
+	<!-- 将数据库需要查看的信息传入数据库 -->
+	<select id="toLogin" parameterType="cn.tedu.jk.entity.User" resultType="cn.tedu.jk.entity.User">
+		select admin,passworld from UserLogin where admin=#{admin} and passworld=#{passworld}
+	</select>
+</mapper>
